@@ -6,8 +6,6 @@ Modification by FriendlyNeighborhoodShane
 
 A userbot script that deletes all messages in a group older than a specified time.
 
-Requires setting up as described [here](https://docs.pyrogram.org/).
-
 ## Installation
 
 ```
@@ -18,9 +16,13 @@ Requires setting up as described [here](https://docs.pyrogram.org/).
 
 ```
 
-Then setup config.ini according to pyrogram docs (bot won't work, this script is for a userbot).
+## Configuration
 
-Open tgclean.py and set targets array to the chats you wish to purge. Also set delete\_before\_days to a comfortable amount .
+Open config.py.
+
+Obtain api_id and api_hash as described [here](https://docs.pyrogram.org/). But instead of putting it in config.ini, put them as tg_api_id and tg_api_hash in config.py (in the quotes).
+
+Set targets array to the chats you wish to purge. Also set delete\_before\_days to a comfortable amount .
 
 ## Usage
 
