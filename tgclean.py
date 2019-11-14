@@ -7,21 +7,21 @@ sauce = "https://github.com/FriendlyNeighborhoodShane/TGClean"
 
 import time
 from pyrogram import Client
-import config.py
+import config
 
 print("TGClean")
 print("-- Starting up delete routine...")
 
-delete_before = int(time.time() - (delete_before_days * 24 * 60 * 60))
+delete_before = int(time.time() - (config.delete_before_days * 24 * 60 * 60))
 print("-- Deleting messages from before " + str(delete_before))
 
 # Create client object with name
-app = Client("TGClean", api_id = tg_api_id, api_hash = tg_api_hash)
+app = Client("TGClean", api_id = config.tg_api_id, api_hash = config.tg_api_hash)
 
 app.start()
 print("-- Client started")
 
-for target in targets:
+for target in config.targets:
 
   # Get target's chat ID and title
   id = app.get_chat(target).id
