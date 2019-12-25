@@ -27,7 +27,7 @@ for target in config.targets:
   id = app.get_chat(target).id
   name = app.get_chat(target).title
 
-  print("  -- Deleting from chat " + target)
+  print("  -- Deleting from chat " + str(target))
   print("  -- Chat ID: " + str(id))
   print("  -- Chat name: " + name)
 
