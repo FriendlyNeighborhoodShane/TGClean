@@ -33,3 +33,5 @@ In the targets array, add a ChatGroup object for every chat/days combo you need.
 ```
 
 The first time you run it, it will ask you to login with your phone number and verification code. After that, your sessions will be stored in the TGClean.session file.
+
+Alternatively, use login.py to login and create the session without actually cleaning anything.
