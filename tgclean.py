@@ -15,6 +15,7 @@ print(" ");
 print("TGClean Cleaning Script");
 
 # Create client object with name
+print(" ");
 print(" - Starting client");
 app = Client("TGClean", api_id = config.tg_api_id, api_hash = config.tg_api_hash);
 app.start();
