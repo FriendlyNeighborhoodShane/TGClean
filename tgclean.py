@@ -8,6 +8,7 @@ sauce = "https://github.com/FriendlyNeighborhoodShane/TGClean";
 import time;
 
 from pyrogram import Client;
+from pyrogram.errors import PeerIdInvalid, UsernameInvalid;
 
 import config;
 
@@ -32,8 +33,13 @@ for target in config.targets:
   for chat in target.chatlist:
 
     # Get target's chat ID and title
-    id = app.get_chat(chat).id;
-    name = app.get_chat(chat).title;
+    try:
+      id = app.get_chat(chat).id;
+      name = app.get_chat(chat).title;
+    except(PeerIdInvalid, UsernameInvalid, ValueError):
+      print(" ");
+      print(" ! Given value leads to invalid chat " + str(chat));
+      continue;
 
     print(" ");
     print(" - Deleting from chat " + str(chat));
