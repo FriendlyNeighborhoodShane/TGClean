@@ -8,7 +8,7 @@ sauce = "https://github.com/FriendlyNeighborhoodShane/TGClean";
 import time;
 
 from pyrogram import Client;
-from pyrogram.errors import PeerIdInvalid, UsernameInvalid;
+from pyrogram.errors import PeerIdInvalid, UsernameInvalid, UserNotParticipant;
 
 import config;
 
@@ -45,6 +45,19 @@ for target in config.targets:
     print(" - Deleting from chat " + str(chat));
     print("   -- Chat ID: " + str(id));
     print("   -- Chat name: " + name);
+
+    # Check that we have delete perms
+    try:
+      member = app.get_chat_member(id, "self");
+      assert member.can_delete_messages is True;
+    except(UserNotParticipant):
+      print(" ")
+      print("   !! The user is not a participant in this chat");
+      continue;
+    except(AssertionError):
+      print(" ")
+      print("   !! The user does not have delete perms in this chat");
+      continue;
 
     # Create empty array and variables
     messages = [];
