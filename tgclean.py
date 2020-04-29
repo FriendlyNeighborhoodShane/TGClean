@@ -34,8 +34,7 @@ for target in config.targets:
 
     # Get target's chat ID and title
     try:
-      id = app.get_chat(chat).id;
-      name = app.get_chat(chat).title;
+      chatobj = app.get_chat(chat);
     except(PeerIdInvalid, UsernameInvalid, ValueError):
       print(" ");
       print(" ! Given value leads to invalid chat " + str(chat));
@@ -43,13 +42,13 @@ for target in config.targets:
 
     print(" ");
     print(" - Deleting from chat " + str(chat));
-    print("   -- Chat ID: " + str(id));
-    print("   -- Chat name: " + name);
+    print("   -- Chat ID: " + str(chatobj.id));
+    print("   -- Chat name: " + chatobj.title);
 
     # Check that we have delete perms
     try:
-      member = app.get_chat_member(id, "self");
-      assert member.can_delete_messages is True;
+      memberobj = app.get_chat_member(chatobj.id, "self");
+      assert memberobj.can_delete_messages is True;
     except(UserNotParticipant):
       print(" ")
       print("   !! The user is not a participant in this chat");
@@ -65,12 +64,12 @@ for target in config.targets:
     deleted = 0;
 
     # Ask for array of messages (oldest to newest) and iterate through it
-    for message in app.iter_history(id, reverse = True):
+    for message in app.iter_history(chatobj.id, reverse = True):
 
       # TG only allows deleting upto 100 messages at once, then delete messages and reset array
       if(messagecount == 100):
         print("     ++ Deleting " + str(messagecount) + " messages at " + str(message.date));
-        app.delete_messages(id, messages);
+        app.delete_messages(chatobj.id, messages);
         deleted = deleted + messagecount;
         messages = [];
         messagecount = 0;
@@ -86,11 +85,11 @@ for target in config.targets:
     # Delete leftover messages
     if(messagecount > 0):
       print("     ++ Deleting "  + str(messagecount) + " messages at end");
-      app.delete_messages(id, messages);
+      app.delete_messages(chatobj.id, messages);
       deleted = deleted + messagecount;
 
     # Send result
-    app.send_message(id, "- - - TGCLEAN REPORT - - -\n\nFinished group purge at: " + str(time.time()) + "\n\nMessages deleted: " + str(deleted) + "\n\nUserbot sauce at: " + sauce, disable_web_page_preview = True);
+    app.send_message(chatobj.id, "- - - TGCLEAN REPORT - - -\n\nFinished group purge at: " + str(time.time()) + "\n\nMessages deleted: " + str(deleted) + "\n\nUserbot sauce at: " + sauce, disable_web_page_preview = True);
 
     print("   -- Done");
 
