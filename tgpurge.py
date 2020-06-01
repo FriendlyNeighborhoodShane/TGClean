@@ -74,7 +74,7 @@ for target in config.targets:
 
       # If message is old, add its id to array
       if(delete_before > message.date):
-        if(message.from_user.id == selfid):
+        if(message.from_user.id and message.from_user.id == selfid):
           messages += [message.message_id];
           messagecount = messagecount + 1;
       else:
