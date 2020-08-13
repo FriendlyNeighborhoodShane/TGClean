@@ -93,7 +93,8 @@ for target in config.targets:
       deleted = deleted + messagecount;
 
     # Send result
-    app.send_message(chatobj.id, "- - - TGCLEAN REPORT - - -\n\nFinished group purge at: " + time.asctime(time.gmtime()) + "\n\nMessages deleted: " + str(deleted) + "\n\nUserbot sauce at: " + sauce, disable_web_page_preview = True);
+    if target.message:
+      app.send_message(chatobj.id, "- - - TGCLEAN REPORT - - -\n\nFinished group purge at: " + time.asctime(time.gmtime()) + "\n\nMessages deleted: " + str(deleted) + "\n\nUserbot sauce at: " + sauce, disable_web_page_preview = True);
 
     print("   -- Done");
 

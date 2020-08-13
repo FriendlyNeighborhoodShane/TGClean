@@ -2,13 +2,15 @@
 
 # Class for a chat group
 class ChatGroup:
-  def __init__(self, chatlist, delete_before_days):
+  def __init__(self, chatlist, delete_before_days, message):
     assert type(chatlist) is list;
     assert type(delete_before_days) is int;
+    assert type(message) is bool;
     self.chatlist = chatlist;
     self.delete_before_days = delete_before_days;
   chatlist = [];
   delete_before_days = 0;
+  message = True;
 
 # API id and hash obtained during setup
 tg_api_id = 12345;
@@ -26,9 +28,11 @@ listB = [
 ];
 
 # List of GroupChat targets
-# Taking lists as first argument and days to not delete as second
+# Taking lists as first argument
+# Days to not delete as second
+# Whether to send a result message as the third
 
 targets = [
-  ChatGroup(listA, 14),
-  ChatGroup(listB, 2)
+  ChatGroup(listA, 14, True),
+  ChatGroup(listB, 2, False)
 ]
