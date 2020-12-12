@@ -12,9 +12,9 @@ TGPurge is a userbot script that deletes all of your messages in a group older t
 
 ```
 
-> apt install clang python
+> apt install python
 
-> pip3 install pyrogram[fast]
+> pip3 install pyrogram tgcrypto
 
 ```
 
