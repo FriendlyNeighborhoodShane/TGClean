@@ -8,6 +8,7 @@ class ChatGroup:
     assert type(message) is bool;
     self.chatlist = chatlist;
     self.delete_before_days = delete_before_days;
+    self.message = message;
   chatlist = [];
   delete_before_days = 0;
   message = True;
@@ -20,11 +21,11 @@ tg_api_hash = "abcd";
 
 listA = [
   "https://t.me/joinchat/abcdef",
-  -12345
+  -12345,
 ];
 
 listB = [
-  "@abcdef"
+  "@abcdef",
 ];
 
 # List of GroupChat targets
@@ -34,5 +35,5 @@ listB = [
 
 targets = [
   ChatGroup(listA, 14, True),
-  ChatGroup(listB, 2, False)
-]
+  ChatGroup(listB, 2, False),
+];
