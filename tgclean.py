@@ -27,7 +27,7 @@ print(" - Starting delete routine");
 for target in config.targets:
 
   print(" ");
-  print(" - Deleting messages older than " + str(target.delete_before_days) + " days");
+  print(" - Deleting messages older than {} days".format(target.delete_before_days));
   delete_before = int(time.time() - (target.delete_before_days * 24 * 60 * 60));
 
   for chat in target.chatlist:
@@ -37,17 +37,17 @@ for target in config.targets:
       chatobj = app.get_chat(chat);
     except(ChannelInvalid, PeerIdInvalid, UsernameInvalid, ValueError):
       print(" ");
-      print(" ! Given value leads to invalid chat " + str(chat));
+      print(" ! Given value leads to invalid chat: {}".format(chat));
       continue;
     except(InviteHashExpired):
       print(" ");
-      print(" ! Given chat invite has expired " + str(chat));
+      print(" ! Given chat invite has expired: {}".format(chat));
       continue;
 
     print(" ");
-    print(" - Deleting from chat " + str(chat));
-    print("   -- Chat ID: " + str(chatobj.id));
-    print("   -- Chat name: " + chatobj.title);
+    print(" - Deleting from chat: {}".format(chat));
+    print("   -- Chat ID: {}".format(chatobj.id));
+    print("   -- Chat name: {}".format(chatobj.title));
 
     # Check that we have delete perms
     try:
@@ -72,7 +72,7 @@ for target in config.targets:
 
       # TG only allows deleting upto 100 messages at once, then delete messages and reset array
       if(messagecount == 100):
-        print("     ++ Deleting " + str(messagecount) + " messages at " + str(message.date));
+        print("     ++ Deleting {} messages at {}".format(messagecount, message.date));
         app.delete_messages(chatobj.id, messages);
         deleted = deleted + messagecount;
         messages = [];
@@ -83,18 +83,18 @@ for target in config.targets:
         messages += [message.message_id];
         messagecount = messagecount + 1;
       else:
-        print("     ++ Found a too new message sent at " + str(message.date));
+        print("     ++ Found a too new message sent at {}".format(message.date));
         break;
 
     # Delete leftover messages
     if(messagecount > 0):
-      print("     ++ Deleting "  + str(messagecount) + " messages at end");
+      print("     ++ Deleting {} messages at end".format(messagecount));
       app.delete_messages(chatobj.id, messages);
       deleted = deleted + messagecount;
 
     # Send result
     if target.message:
-      app.send_message(chatobj.id, "- - - TGCLEAN REPORT - - -\n\nFinished group purge at: " + time.asctime(time.gmtime()) + "\n\nMessages deleted: " + str(deleted) + "\n\nUserbot sauce at: " + sauce, disable_web_page_preview = True);
+      app.send_message(chatobj.id, "- - - TGCLEAN REPORT - - -\n\nFinished group purge at: {}\n\nMessages deleted: {}\n\nUserbot sauce at: {}\n".format(time.asctime(time.gmtime()), deleted, sauce), disable_web_page_preview = True);
 
     print("   -- Done");
 
